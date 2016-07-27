@@ -59,14 +59,12 @@ class Driver implements \Doctrine\DBAL\Driver
             $dsn = 'sqlsrv:server=';
 
             if (isset($params['host'])) {
-                $dsn .= 'host=' . $params['host'];
-
-                if (isset($params['port'])) {
-                    $dsn .= ':' . $params['port'];
-                }
-
-                $dsn .= ';';
-            }
+                 $dsn .= $params['host'];
+             }
+ 
+             if (isset($params['port']) && !empty($params['port'])) {
+                 $dsn .= ',' . $params['port'];
+             }
 
             if (isset($params['dbname'])) {
                 $dsn .= ';Database=' .  $params['dbname'];
@@ -77,10 +75,13 @@ class Driver implements \Doctrine\DBAL\Driver
 
             $dsn = 'dblib:';
             if (isset($params['host'])) {
-                $dsn .= 'host=' . $params['host'] . ';';
-            }
-            if (isset($params['port'])) {
-                $dsn .= 'port=' . $params['port'] . ';';
+                $dsn .= 'host=' . $params['host'];
+
+                if (isset($params['port'])) {
+                    $dsn .= ':' . $params['port'];
+                }
+
+                $dsn .= ';';
             }
             if (isset($params['dbname'])) {
                 $dsn .= 'dbname=' . $params['dbname'] . ';';
